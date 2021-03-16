@@ -1,32 +1,37 @@
 import React from 'react';
-// import './App.css';
 
 class SchoolRoster extends React.Component {
+  renderTableHeaders() {
+    return this.props.houses.map((group, index) => {
+      return <td>{group.name}</td>
+      
+    });
+  }
+
+  renderTableData(){
+    let elements = [];
+    for (let j = 0; j < 3; j++)
+    {
+      elements.push(<tr><td>{this.props.houses[0].students[j]}</td>
+        <td>{this.props.houses[1].students[j]}</td>
+        <td>{this.props.houses[2].students[j]}</td>
+        <td>{this.props.houses[3].students[j]}</td></tr>);
+    }
+    return elements;
+  }
+
     render() {
         return (
             <div className={this.props.hidden ? "hidden" : ""}>
                 <table class="table table-bordered" id="table">
-                    <tr>
-                        <th>Hufflepuffs</th>
-                    </tr>
-                    {/* <th>Ravenclaws</th> 
-                        <th>Slytherins</th>
-                        <th>Gryffindors</th> */}
-
-
-                    {/* {objects.map((object, i) => <ObjectRow obj={object} key={i} />)} */}
-
-                    {/* var rows = [];
-for (var i = 0; i < numrows; {
-                        rows.push(<ObjectRow key={i} />);
-}
-return <tbody>{rows}</tbody>; */}
-
-
-                    {/* {this.props.students.map((student =>
-                        <tr><td>{student}</td></tr>
-                    ))} */}
-
+              <thead>
+                <tr>
+                  {this.renderTableHeaders()}
+                </tr>
+              </thead>
+              <tbody>
+                {this.renderTableData()}
+              </tbody>
                 </table>
             </div >
         );

@@ -10,7 +10,12 @@ class App extends React.Component {
       showInitialSetup: true,
       personName: '',
       houseName: '',
-      students: ["John", "Paul", "Helen"]
+      houses: [
+        { name: "Griffindor", students: []},
+        { name: "Ravenclaw", students: []},
+        { name: "Slytherin", students: []},
+        { name: "Hufflepuff", students: []},
+      ]
     };
   }
 
@@ -29,25 +34,14 @@ class App extends React.Component {
   handleNameEntered = (event, name) => {
     event.preventDefault();
     console.log(name);
-    let randomNumber = Math.floor(Math.random() * 4) + 1;
-    let fnHouseName = '';
+    let randomNumber = Math.floor(Math.random() * 4);
     console.log(randomNumber);
-    switch (randomNumber) {
-      case 1:
-        fnHouseName = "Hufflepuff";
-        break;
-      case 2:
-        fnHouseName = "Ravenclaw";
-        break;
-      case 3:
-        fnHouseName = "Slytherin";
-        break;
-      case 4:
-        fnHouseName = "Gryffindor";
-    }
+
+    let house = this.state.houses[randomNumber];
+    house.students.push(name);
     this.setState({
       personName: name,
-      houseName: fnHouseName
+      houseName: house.name,
     });
   }
   render() {
@@ -57,7 +51,7 @@ class App extends React.Component {
         <Input onSubmit={this.handleNumberEntered} label={"Number of people to be sorted?"} hidden={!this.state.showInitialSetup} />
         <Input onSubmit={this.handleNameEntered} label={"Name?"} hidden={this.state.showInitialSetup} />
         <p> {this.state.personName + " you are in " + this.state.houseName}</p>
-        <SchoolRoster onSubmit={this.generateTable} houses={this.state.houses} />
+        <SchoolRoster students={this.state.students} students1={this.state.students1} houses={this.state.houses}/>
       </div>
     );
   }
