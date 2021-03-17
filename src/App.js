@@ -1,7 +1,11 @@
 import React from 'react';
 import './App.css';
-import Input from './Components/Input'
+import Input from './Components/Input';
 import SchoolRoster from './Components/SchoolRoster';
+import hat from './images/hat.jpg';
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -10,11 +14,12 @@ class App extends React.Component {
       showInitialSetup: true,
       personName: '',
       houseName: '',
+      numberPerHouse: 0,
       houses: [
-        { name: "Griffindor", students: []},
-        { name: "Ravenclaw", students: []},
-        { name: "Slytherin", students: []},
-        { name: "Hufflepuff", students: []},
+        { name: "Griffindor", students: [] },
+        { name: "Ravenclaw", students: [] },
+        { name: "Slytherin", students: [] },
+        { name: "Hufflepuff", students: [] },
       ]
     };
   }
@@ -26,12 +31,18 @@ class App extends React.Component {
     if (!Number(value)) {
       alert("Please enter a number");
     }
-    let numberPerHouse = value / 4;
+    let numberPerHouse = Math.ceil(value / 4);
     console.log(numberPerHouse);
-    this.setState({ showInitialSetup: false });
+    this.setState({
+      showInitialSetup: false,
+      numberPerHouse: numberPerHouse
+    });
   }
 
   handleNameEntered = (event, name) => {
+    <Button variant="primary" disabled>
+      Primary button
+  </Button>
     event.preventDefault();
     console.log(name);
     let randomNumber = Math.floor(Math.random() * 4);
@@ -50,8 +61,11 @@ class App extends React.Component {
         <h1>Harry Potter Sorting Hat</h1>
         <Input onSubmit={this.handleNumberEntered} label={"Number of people to be sorted?"} hidden={!this.state.showInitialSetup} />
         <Input onSubmit={this.handleNameEntered} label={"Name?"} hidden={this.state.showInitialSetup} />
+        <div id="stage">
+          <img id="hat" src={hat} />
+        </div>
         <p> {this.state.personName + " you are in " + this.state.houseName}</p>
-        <SchoolRoster students={this.state.students} students1={this.state.students1} houses={this.state.houses}/>
+        <SchoolRoster students={this.state.students} students1={this.state.students1} houses={this.state.houses} numberPerHouse={this.state.numberPerHouse} />
       </div>
     );
   }

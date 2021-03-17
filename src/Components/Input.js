@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 class Input extends React.Component {
     constructor(props) {
@@ -18,7 +19,8 @@ class Input extends React.Component {
                         {this.props.label}
                         <input type="text" value={this.state.value} onChange={this.handleChange} />
                     </label>
-                    <input type="submit" value="Submit" />
+                    <Button variant="outline-primary">OK
+                    </Button>
                 </form>
             </div >
         );
