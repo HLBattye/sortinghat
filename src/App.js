@@ -1,10 +1,11 @@
 import React from 'react';
-import './App.css';
 import Input from './Components/Input';
+import Hat from './Components/Hat';
 import SchoolRoster from './Components/SchoolRoster';
 import hat from './images/hat.jpg';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 
 class App extends React.Component {
@@ -15,6 +16,7 @@ class App extends React.Component {
       personName: '',
       houseName: '',
       numberPerHouse: 0,
+      hatClass: '',
       houses: [
         { name: "Griffindor", students: [] },
         { name: "Ravenclaw", students: [] },
@@ -40,31 +42,36 @@ class App extends React.Component {
   }
 
   handleNameEntered = (event, name) => {
-    <Button variant="primary" disabled>
-      Primary button
-  </Button>
     event.preventDefault();
     console.log(name);
-    let randomNumber = Math.floor(Math.random() * 4);
-    console.log(randomNumber);
+    let randomNumber = 0;
+    do {
+      randomNumber = Math.floor(Math.random() * 4);
+      console.log(randomNumber);
+    }
+    while (this.state.houses[randomNumber].students.length >= this.state.numberPerHouse) {
 
-    let house = this.state.houses[randomNumber];
-    house.students.push(name);
-    this.setState({
-      personName: name,
-      houseName: house.name,
-    });
+      console.log(this.state.houses[randomNumber].students.length);
+      let house = this.state.houses[randomNumber];
+      house.students.push(name);
+      this.setState({
+        personName: name,
+        houseName: house.name,
+        hatClass: "spinner"
+      });
+    }
   }
+
   render() {
     return (
       <div className="app">
         <h1>Harry Potter Sorting Hat</h1>
-        <Input onSubmit={this.handleNumberEntered} label={"Number of people to be sorted?"} hidden={!this.state.showInitialSetup} />
-        <Input onSubmit={this.handleNameEntered} label={"Name?"} hidden={this.state.showInitialSetup} />
-        <div id="stage">
+        <Input onSubmit={this.handleNumberEntered} label={"Number of people to be sorted? "} hidden={!this.state.showInitialSetup} />
+        <Input onSubmit={this.handleNameEntered} label={"Name? "} hidden={this.state.showInitialSetup} />
+        <div id="stage" className={this.state.hatClass}>
           <img id="hat" src={hat} />
         </div>
-        <p> {this.state.personName + " you are in " + this.state.houseName}</p>
+        <Hat personName={this.state.personName} houseName={this.state.houseName} />
         <SchoolRoster students={this.state.students} students1={this.state.students1} houses={this.state.houses} numberPerHouse={this.state.numberPerHouse} />
       </div>
     );

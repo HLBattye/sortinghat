@@ -62,8 +62,12 @@ font-family: 'HarryP';
 
 label, p {
   font-size: 20pt;
+  font-family: 'HarryP'
 }
 
+.btn {
+  margin: 0 0 14pt 11pt;
+}
 
 /* .result {
 font-size: 30pt;
@@ -73,24 +77,36 @@ position: relative;
 padding-bottom: 10pt;
 }
 
-.alternative div {
-font-size: 30pt;
-opacity: 1;
-color:blue;
-position: relative;
-animation: delayResult 5s ease-in 0s;
-animation-name: fadeInAndOut;
-animation-fill-mode: both;
-animation-duration: 10s;
-padding-bottom: 10pt;
-text-align: center;
-} */
 
 /* #return {
 font-size: 20pt;
 color: red;
 } */
 
+.fadeText {
+  font-size: 30pt;
+  opacity: 1;
+  color:blue;
+  position: relative;
+  animation: delayResult 5s ease-in 10s;
+  animation-name: fadeInAndOut;
+  animation-fill-mode: both;
+  animation-duration: 10s;
+  padding-bottom: 10pt;
+  text-align: center;
+  }
+  .fade {
+    animation: delayResult 5s ease-in 10s;
+    animation-name: fade;
+    animation-fill-mode: both;
+    animation-duration: 10s;
+    }
+
+  .hidden1 {
+    font-size: 30pt;
+    padding-bottom: 10pt;
+    opacity: 0;
+  }
 
 .houses {
 background-color: black;
@@ -98,25 +114,24 @@ background-color: black;
 
 table td:first-child{
 color: rgb(255, 219, 0);
+border:2px solid black;
 }
 
 table td:nth-child(2){
 color: rgb(42, 98, 61);
+border:2px solid black;
+
 }
 
 table td:nth-child(3){
 color: rgb(34, 47, 91);
+border:2px solid black;
+
 }
 
 table td:last-child{
-color: rgb(116, 0, 1);
-}
-
-p, .name {
-animation: delayResult 5s ease-in 10s;
-animation-name: fade;
-animation-fill-mode: both;
-animation-duration: 10s;
+color: rgba(116, 0, 2, 0.897);
+border:2px solid black;
 }
 
 div#nameSection {
@@ -146,14 +161,14 @@ border:1px solid black;
 font-size: 30pt;
 max-width: 60%;
 margin: 0px auto;
-border-collapse: collapse;
+font-family: 'HarryP';
 }
 table.table-bordered > tbody > tr > th{
 border:1px solid black;
 height: 50pt;
 }
 table.table-bordered > tbody > tr > td{
-border:1px solid black;
+border-right:2px solid black;
 height: 50pt;
 }
 

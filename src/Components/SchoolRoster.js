@@ -11,7 +11,7 @@ class SchoolRoster extends React.Component {
         let rows = [];
         for (let j = 0; j < this.props.numberPerHouse; j++) {
             let row = this.props.houses.map((house, index) =>
-                <td className={house.students[j] === undefined ? "" : "name"}>
+                <td className={house.students[j] === undefined ? "" : "fade"}>
                     {house.students[j]}
                 </td>
             );
@@ -19,16 +19,6 @@ class SchoolRoster extends React.Component {
         }
         return rows;
     }
-    //     renderTableData() {
-    //         let elements = [];
-    //         for (let j = 0; j < this.props.numberPerHouse; j++) {
-    //             elements.push(<tr><td>{this.props.houses[0].students[j]}</td>
-    //                 <td>{this.props.houses[1].students[j]}</td>
-    //                 <td>{this.props.houses[2].students[j]}</td>
-    //                 <td>{this.props.houses[3].students[j]}</td></tr>);
-    //         }
-    //         return elements;
-    //     }
 
     render() {
         return (
