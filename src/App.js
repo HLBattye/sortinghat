@@ -7,7 +7,6 @@ import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +17,7 @@ class App extends React.Component {
       numberPerHouse: 0,
       hatClass: '',
       houses: [
-        { name: "Griffindor", students: [] },
+        { name: "Gryffindor", students: [] },
         { name: "Ravenclaw", students: [] },
         { name: "Slytherin", students: [] },
         { name: "Hufflepuff", students: [] },
@@ -44,22 +43,39 @@ class App extends React.Component {
   handleNameEntered = (event, name) => {
     event.preventDefault();
     console.log(name);
+
     let randomNumber = 0;
     do {
       randomNumber = Math.floor(Math.random() * 4);
       console.log(randomNumber);
     }
-    while (this.state.houses[randomNumber].students.length >= this.state.numberPerHouse) {
-
-      console.log(this.state.houses[randomNumber].students.length);
-      let house = this.state.houses[randomNumber];
-      house.students.push(name);
-      this.setState({
-        personName: name,
-        houseName: house.name,
-        hatClass: "spinner"
-      });
-    }
+    while (this.state.houses[randomNumber].students.length >= this.state.numberPerHouse)
+    console.log(this.state.houses[randomNumber].students.length);
+    let house = this.state.houses[randomNumber];
+    house.students.push(name);
+    this.playSound('/audio/ahright.wav', house.name);
+    this.setState({
+      personName: name,
+      houseName: house.name,
+      hatClass: "spinner"
+    });
+  }
+  playSound(fileName, houseName) {
+    const audio = new Audio(fileName);
+    audio.play();
+    audio.addEventListener('ended', () => {
+      window.setTimeout(() => {
+        let soundFile = 'audio/' + houseName.toLowerCase() + '.wav';
+        let audio2 = new Audio(soundFile);
+        audio2.play();
+        audio2.addEventListener('ended', () => {
+          this.setState({
+            hatClass: "",
+            personName: ""
+          });
+        });
+      }, 1000);
+    });
   }
 
   render() {
@@ -72,7 +88,7 @@ class App extends React.Component {
           <img id="hat" src={hat} />
         </div>
         <Hat personName={this.state.personName} houseName={this.state.houseName} />
-        <SchoolRoster students={this.state.students} students1={this.state.students1} houses={this.state.houses} numberPerHouse={this.state.numberPerHouse} />
+        <SchoolRoster houses={this.state.houses} numberPerHouse={this.state.numberPerHouse} />
       </div>
     );
   }

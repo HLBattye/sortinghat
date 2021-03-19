@@ -88,18 +88,18 @@ color: red;
   opacity: 1;
   color:blue;
   position: relative;
-  animation: delayResult 5s ease-in 10s;
+  animation: delayResult 5s ease-in 5s;
   animation-name: fadeInAndOut;
   animation-fill-mode: both;
-  animation-duration: 10s;
+  animation-duration: 5s;
   padding-bottom: 10pt;
   text-align: center;
   }
   .fade {
-    animation: delayResult 5s ease-in 10s;
+    animation: delayResult 5s ease-in 5s;
     animation-name: fade;
     animation-fill-mode: both;
-    animation-duration: 10s;
+    animation-duration: 5s;
     }
 
   .hidden1 {
