@@ -62,13 +62,16 @@ font-family: 'HarryP';
 
 label, p {
   font-size: 20pt;
-  font-family: 'HarryP'
+  font-family: 'HarryP';
 }
 
 .btn {
   margin: 0 0 14pt 11pt;
 }
 
+body {
+  text-align: center;
+}
 /* .result {
 font-size: 30pt;
 opacity: 0;
@@ -88,7 +91,7 @@ color: red;
   opacity: 1;
   color:blue;
   position: relative;
-  animation: delayResult 5s ease-in 5s;
+  animation: delayResult 3s ease-in 1s;
   animation-name: fadeInAndOut;
   animation-fill-mode: both;
   animation-duration: 5s;
@@ -165,11 +168,11 @@ font-family: 'HarryP';
 }
 table.table-bordered > tbody > tr > th{
 border:1px solid black;
-height: 50pt;
+height: 40pt;
 }
 table.table-bordered > tbody > tr > td{
 border-right:2px solid black;
-height: 50pt;
+height: 40pt;
 }
 
 caption {

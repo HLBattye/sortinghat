@@ -15,6 +15,7 @@ class App extends React.Component {
       personName: '',
       houseName: '',
       numberPerHouse: 0,
+      hatHidden: true,
       hatClass: '',
       houses: [
         { name: "Gryffindor", students: [] },
@@ -53,28 +54,52 @@ class App extends React.Component {
     console.log(this.state.houses[randomNumber].students.length);
     let house = this.state.houses[randomNumber];
     house.students.push(name);
-    this.playSound('/audio/ahright.wav', house.name);
+    this.playAudio();
     this.setState({
       personName: name,
       houseName: house.name,
       hatClass: "spinner"
     });
   }
-  playSound(fileName, houseName) {
+
+  playAudio() {
+    let audioNumber = Math.floor(Math.random() * 5) + 1;
+    if (audioNumber === 1) {
+      this.playSound('audio/ahright.wav');
+    }
+    else if (audioNumber === 2) {
+      this.playSound('audio/difficult.wav');
+    }
+    else if (audioNumber === 3) {
+      this.playSound('audio/itsallhere.wav');
+    }
+    else if (audioNumber === 4) {
+      this.playSound('audio/rightok.wav');
+    }
+    else {
+      this.playSound('audio/wheretoputyou.wav');
+    }
+  }
+
+  playSound(fileName) {
     const audio = new Audio(fileName);
     audio.play();
     audio.addEventListener('ended', () => {
+      this.setState({
+        hatHidden: false
+      })
       window.setTimeout(() => {
-        let soundFile = 'audio/' + houseName.toLowerCase() + '.wav';
+        let soundFile = 'audio/' + this.state.houseName.toLowerCase() + '.wav';
         let audio2 = new Audio(soundFile);
         audio2.play();
         audio2.addEventListener('ended', () => {
           this.setState({
             hatClass: "",
-            personName: ""
+            personName: "",
+            hatHidden: true
           });
         });
-      }, 1000);
+      }, 2000);
     });
   }
 
@@ -87,7 +112,7 @@ class App extends React.Component {
         <div id="stage" className={this.state.hatClass}>
           <img id="hat" src={hat} />
         </div>
-        <Hat personName={this.state.personName} houseName={this.state.houseName} />
+        <Hat isHidden={this.state.hatHidden} personName={this.state.personName} houseName={this.state.houseName} />
         <SchoolRoster houses={this.state.houses} numberPerHouse={this.state.numberPerHouse} />
       </div>
     );
