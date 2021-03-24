@@ -15,8 +15,10 @@ class App extends React.Component {
       personName: '',
       houseName: '',
       numberPerHouse: 0,
+      numberOfRows: 0,
       hatHidden: true,
       hatClass: '',
+      remainderChildren: 0,
       houses: [
         { name: "Gryffindor", students: [] },
         { name: "Ravenclaw", students: [] },
@@ -24,6 +26,7 @@ class App extends React.Component {
         { name: "Hufflepuff", students: [] },
       ]
     };
+
   }
 
   handleNumberEntered = (event, value) => {
@@ -33,12 +36,26 @@ class App extends React.Component {
     if (!Number(value)) {
       alert("Please enter a number");
     }
-    let numberPerHouse = Math.ceil(value / 4);
-    console.log(numberPerHouse);
     this.setState({
       showInitialSetup: false,
-      numberPerHouse: numberPerHouse
+      numberPerHouse: Math.ceil(value / 4),
+      remainderChildren: value - (Math.floor(value / 4) * 4),
+      numberOfRows: Math.ceil(value / 4)
     });
+  }
+
+  isHouseFull = (randomNumber) => {
+    return this.state.houses[randomNumber].students.length >= this.state.numberPerHouse;
+  }
+
+  getNumberOfHousesFull = () => {
+    let count = 0
+    for (let i = 0; i < 4; i++) {
+      if (this.isHouseFull(i)) {
+        count += 1;
+      }
+    }
+    return count;
   }
 
   handleNameEntered = (event, name) => {
@@ -55,6 +72,13 @@ class App extends React.Component {
     let house = this.state.houses[randomNumber];
     house.students.push(name);
     this.playAudio();
+    let numberOfHousesFull = this.getNumberOfHousesFull();
+    if (numberOfHousesFull === this.state.remainderChildren) {
+      this.setState({
+        numberPerHouse: this.state.numberPerHouse - 1,
+        remainderChildren: 0
+      });
+    }
     this.setState({
       personName: name,
       houseName: house.name,
@@ -113,7 +137,7 @@ class App extends React.Component {
           <img id="hat" src={hat} />
         </div>
         <Hat isHidden={this.state.hatHidden} personName={this.state.personName} houseName={this.state.houseName} />
-        <SchoolRoster houses={this.state.houses} numberPerHouse={this.state.numberPerHouse} />
+        <SchoolRoster houses={this.state.houses} numberPerHouse={this.state.numberOfRows} />
       </div>
     );
   }
